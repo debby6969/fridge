@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head><title>Expiry Check</title></head>
+<body>
+    <body bgcolor="#CFFFEA">
+    <h1>Expiry Status ({{ today.strftime("%d-%m-%Y") }})</h1>
+
+    <h2>❌ Expired Items</h2>
+    {% if expired %}
+        <ul>{% for item in expired %}<li>{{ item }}</li>{% endfor %}</ul>
+    {% else %}
+        <p>No expired items.</p>
+    {% endif %}
+
+    <h2>⚠️ Expiring Today</h2>
+    {% if expiring_today %}
+        <ul>{% for item in expiring_today %}<li>{{ item }}</li>{% endfor %}</ul>
+    {% else %}
+        <p>No items expiring today.</p>
+    {% endif %}
+
+    <h2>⏳ Expiring Soon (within 3 days)</h2>
+    {% if soon %}
+        <ul>{% for item in soon %}<li>{{ item }}</li>{% endfor %}</ul>
+    {% else %}
+        <p>No items expiring soon.</p>
+    {% endif %}
+
+    <p><a href="/">Back to fridge</a></p>
+</body>
+</html> 
