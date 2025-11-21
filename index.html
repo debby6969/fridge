@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><title>GreenFridge Tracker</title></head>
+<body bgcolor="#CFFFEA">
+    <h1>📦 Current Fridge</h1>
+    <ul>
+        {% for entry in food %}
+            <li>{{ entry.name }} — expires {{ entry.expiry.strftime("%d-%m-%Y") }}</li>
+        {% endfor %}
+    </ul>
+
+
+    <h2>Add Item</h2>
+    <form method="POST" action="/add">
+        Name: <input type="text" name="itemname" required></br>
+        Expiry (DD-MM-YYYY): <input type="text" name="expiry" required>
+        </br>
+        <button type="submit" style="background-color: green; color: white;">Add</button>
+    </form>
+
+    <h2>Remove Item</h2>
+    <form method="POST" action="/remove">
+        Name: <input type="text" name="itemname" required>
+        <button type="submit" style="background-color: green; color: white;">Remove</button>
+    </form>
+
+    <p><a href="/check">Check expiry status</a></p>
+</body>
+</html>
