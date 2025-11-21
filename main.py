@@ -68,11 +68,7 @@ def check_expiry():
         soon=soon,
         today=today
     )
-@app.route("/secret")
-def secret():
-    return render_template("secret.html")
- 
-    
+
 
 if __name__ == "__main__":
     app.run(debug=True)
