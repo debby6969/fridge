@@ -10,7 +10,12 @@ food = []
 @app.route("/")
 def index():
     today = datetime.date.today()
-    return render_template("index.html", food=food, today=today)
+    events = [
+        {"title": entry["name"], "start": entry["expiry"].strftime("%Y-%m-%d")}
+        for entry in food
+    ]
+    return render_template("index.html", food=food, today=today, events=events)
+
 
 @app.route("/add", methods=["POST"])
 def add_item():
@@ -18,7 +23,6 @@ def add_item():
     expiry = request.form["expiry"].strip()
 
     if not itemname or not expiry:
-        # Handle missing input gracefully
         return "⚠️ Please provide both item name and expiry date in DD-MM-YYYY format. Make sure you add dashes(-) between numbers example : 12-12-2025.", 400
 
     try:
@@ -48,8 +52,12 @@ def remove_item():
 @app.route("/check")
 def check_expiry():
     today = datetime.date.today()
+    # Get 'days' from query string, default to 7 if not provided
+    days = request.args.get("days", default=7, type=int)
+
     expired = []
     expiring_today = []
+    soon3 = []
     soon = []
 
     for entry in food:
@@ -58,16 +66,28 @@ def check_expiry():
             expired.append(entry["name"])
         elif expiry_date == today:
             expiring_today.append(entry["name"])
-        elif today < expiry_date <= today + datetime.timedelta(days=3):
+        elif today < expiry_date <= today + datetime.timedelta(days=days):
             soon.append(entry["name"])
+            
 
     return render_template(
         "check.html",
         expired=expired,
         expiring_today=expiring_today,
         soon=soon,
-        today=today
+        soon3=soon3,
+        today=today,
+        days=days
     )
+
+@app.route("/secret")
+def secret():
+    return render_template("secret.html")
+ 
+events = [
+    {"title": entry["name"], "start": entry["expiry"].strftime("%Y-%m-%d")}
+    for entry in food
+]
 
 
 if __name__ == "__main__":
