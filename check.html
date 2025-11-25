@@ -1,30 +1,73 @@
 <!DOCTYPE html>
 <html>
-<head><title>Expiry Check</title></head>
-<body>
-    <body bgcolor="#CFFFEA">
+<head>
+    <title>Expiry Check</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+</head>
+<body style="background-color:#CFFFEA;">
     <h1>Expiry Status ({{ today.strftime("%d-%m-%Y") }})</h1>
 
+    <!-- Form to choose how many days to check -->
+    <form method="GET" action="/check">
+        <label for="days"><b>Show items expiring within:</label></b>
+        <input type="number" name="days" id="days" value="{{ days }}" min="1" max="30">
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+
+    <!-- Expiring Soon (custom days) -->
+    <h2>⏳ Expiring within {{ days }} days</h2>
+    {% if soon %}
+        <ul>
+            {% for item in soon %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No items expiring soon.</p>
+    {% endif %}
+
+    <!-- Expiring Soon (fixed 3 days) -->
+    <h2>⏳ Expiring Soon (within 3 days)</h2>
+    {% if soon3 %}
+        <ul>
+            {% for item in soon3 %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No items expiring soon.</p>
+    {% endif %}
+
+    <!-- Expired Items -->
     <h2>❌ Expired Items</h2>
     {% if expired %}
-        <ul>{% for item in expired %}<li>{{ item }}</li>{% endfor %}</ul>
+        <ul>
+            {% for item in expired %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
     {% else %}
         <p>No expired items.</p>
     {% endif %}
 
+    <!-- Expiring Today -->
     <h2>⚠️ Expiring Today</h2>
     {% if expiring_today %}
-        <ul>{% for item in expiring_today %}<li>{{ item }}</li>{% endfor %}</ul>
+        <ul>
+            {% for item in expiring_today %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
     {% else %}
         <p>No items expiring today.</p>
     {% endif %}
 
-    <h2>⏳ Expiring Soon (within 3 days)</h2>
-    {% if soon %}
-        <ul>{% for item in soon %}<li>{{ item }}</li>{% endfor %}</ul>
-    {% else %}
-        <p>No items expiring soon.</p>
-    {% endif %}
+    <p><a href="/">Back to fridge</a></p>
+</body>
+</html>
+
+
 
     <p><a href="/">Back to fridge</a></p>
 </body>
