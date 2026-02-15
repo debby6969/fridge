@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body style="background-color:#CFFFEA;">
+    <div class="container mt-5">
+        <h1 class="text-center">🌤 Weather Today</h1>
+
+        <div class="fridge-box mt-4 p-4">
+            <p><strong>Date:</strong> {{ today }}</p>
+            <p><strong>Weather Code:</strong> {{ weatherCode }}</p>
+            <p><strong>Min Temp:</strong> {{ temp_min }}°C</p>
+            <p><strong>Max Temp:</strong> {{ temp_max }}°C</p>
+           
+
+
+            <a href="/" class="btn btn-secondary mt-3">Back to Fridge</a>
+        </div>
+    </div>
+</body>
+</html>
