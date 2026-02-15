@@ -47,7 +47,3 @@ And this one felt cool.
 
 ---
 
-If you want, I can also generate:
-- a **logo idea**,  
-- a **project banner**,  
-- or a **To‑Do list section** for future updates.
